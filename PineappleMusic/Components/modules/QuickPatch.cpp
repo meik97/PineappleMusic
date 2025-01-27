@@ -29,8 +29,8 @@ namespace Modules
 		{
 			test    ecx, ecx
 			js      locret_140200D20
-			mov[rsp + 24], r8
-			mov		rax, print_f_back
+			mov	[rsp + 24], r8
+			mov	rax, print_f_back
 			push	rax
 			ret
 		}
@@ -82,19 +82,19 @@ namespace Modules
 	{
 		__asm
 		{
-			mov		_r8, r8
+			mov	_r8, r8
 			call	changeStepFrequency
 
 			mov     eax, [r8 + 4]
-			mov		[rsi + 4], eax
+			mov	[rsi + 4], eax
 			mov     eax, [rsi + 8]
-			and		eax, 4294967241
-			or		eax, 49h
+			and	eax, 4294967241
+			or	eax, 49h
 			
 			jmp     loc_1800102AE
 			mov     eax, [r8]
 			xor     edi, edi
-			mov		rax, fixVolumeStepFrequency_back
+			mov	rax, fixVolumeStepFrequency_back
 			
 			push	rax
 			ret
@@ -107,7 +107,6 @@ namespace Modules
 		//AMPServices debug log
 		//Utils::Hook::InstallHook((void*)(BASE + 0x0200A44), print_f);
 		
-
 		//Utils::Hook::InstallHook((void*)(BASE + 0x0A1A614), calculateVolume); //we dont need this
 
 		//Volume step frequency
