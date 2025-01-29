@@ -16,7 +16,7 @@ namespace Modules
 	{
 	public:
 		QuickPatch();
-		static void Branding();
+		static void branding();
 		static void print_f(int a1, int a2, __int128 fmt, ...);
 		static void __attribute__((naked)) print_f_stub(int a1, int a2, __int128* fmt, ...);
 		static void fixVolumeStepFrequency(__int64 a1, int a2, int a3);

@@ -16,13 +16,13 @@
 
 namespace Modules
 {
-	void QuickPatch::Branding()
+	void QuickPatch::branding()
 	{
 		//add branding
 	}
 
-	DWORD64 print_f_back = BASE + 0x0200A51;
-	DWORD64 locret_140200D20 = BASE + 0x0200D20;
+	DWORD64 print_f_back = AMPLibraryAgentBase + 0x0200A51;
+	DWORD64 locret_140200D20 = AMPLibraryAgentBase + 0x0200D20;
 	void __attribute__((naked)) QuickPatch::print_f_stub(int a1, int a2, __int128* fmt, ...)
 	{
 		__asm
@@ -53,7 +53,7 @@ namespace Modules
 
 	typedef float(*gain_t)();
 	extern gain_t getGain;
-	gain_t getGain = (gain_t)(BASE + 0x0A1A42C);
+	gain_t getGain = (gain_t)(AMPLibraryAgentBase + 0x0A1A42C);
 
 	float QuickPatch::calculateVolume(double slider)
 	{
@@ -105,12 +105,12 @@ namespace Modules
 	QuickPatch::QuickPatch()
 	{
 		//AMPServices debug log
-		//Utils::Hook::InstallHook((void*)(BASE + 0x0200A44), print_f);
+		Utils::Hook::InstallHook((void*)(AMPLibraryAgentBase + 0x0200A44), print_f);
 		
-		//Utils::Hook::InstallHook((void*)(BASE + 0x0A1A614), calculateVolume); //we dont need this
+		Utils::Hook::InstallHook((void*)(AMPLibraryAgentBase + 0x0A1A614), calculateVolume); //we dont need this
 
 		//Volume step frequency
-		Utils::Hook::InstallHook((void*)(MicrosoftUIXamlBase + 0xFEF6), fixVolumeStepFrequency);
+		//Utils::Hook::InstallHook((void*)(MicrosoftUIXamlBase + 0xFEF6), fixVolumeStepFrequency);
 	}
 
 }
