@@ -68,7 +68,7 @@ bool inject(const wchar_t* procName, const char* dll)
 int main()
 {
 	inject(L"AMPLibraryAgent.exe", "PineappleMusic.dll");
-	//add injection to applemusic.exe --> requires .dll to be able to distinguish between targets
+	inject(L"AppleMusic.exe", "PineappleMusic.dll");
 
 	return true;
 }

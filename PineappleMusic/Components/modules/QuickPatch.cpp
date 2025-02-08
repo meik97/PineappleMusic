@@ -102,19 +102,24 @@ namespace Modules
 		}
 	}
 
-	QuickPatch::QuickPatch()
+	QuickPatch::QuickPatch(std::wstring module)
 	{
-		//AMP library agent debug log
-		Utils::Hook::InstallHook((void*)(AMPLibraryAgentBase + 0x0200A44), print_f);
+		if (module.compare(L"AMPLibraryAgent.exe") == 0)
+		{
+			//AMP library agent debug log
+			Utils::Hook::InstallHook((void*)(AMPLibraryAgentBase + 0x0200A44), print_f);
 
-		//we dont need this
-		//Utils::Hook::InstallHook((void*)(AMPLibraryAgentBase + 0x0A1A614), calculateVolume); 
+			//we dont need this
+			Utils::Hook::InstallHook((void*)(AMPLibraryAgentBase + 0x0A1A614), calculateVolume); 
+		}
 
-		//Volume step frequency
-		//Utils::Hook::InstallHook((void*)(MicrosoftUIXamlBase + 0xFEF6), fixVolumeStepFrequency);
+		if (module.compare(L"AppleMusic.exe") == 0)
+		{
+			//Volume step frequency
+			Utils::Hook::InstallHook((void*)(MicrosoftUIXamlBase + 0xFEF6), fixVolumeStepFrequency);
 
-		//AMP Services debug log
-		//Utils::Hook::InstallHook((void*)(AMPServicesBase + 0x011D18C), print_f);
+			//AMP Services debug log
+			Utils::Hook::InstallHook((void*)(AMPServicesBase + 0x011D18C), print_f);
+		}
 	}
-
 }
