@@ -4,7 +4,7 @@
 #include <windows.h>
 #include <TlHelp32.h>
 
-DWORD GetProcId(const wchar_t* procName)
+DWORD getProcId(const wchar_t* procName)
 {
 	PROCESSENTRY32 procEntry;
 	procEntry.dwSize = sizeof(procEntry);
@@ -29,22 +29,17 @@ DWORD GetProcId(const wchar_t* procName)
 	return 0;
 }
 
-int main()
+bool inject(const wchar_t* procName, const char* dll)
 {
 	HANDLE hProcess;
-	DWORD dwProcess;
-	const char* DLL_NAME;
+	DWORD dwProcess = 0;
 	char DLL_PATH[MAX_PATH];
 
-	dwProcess = GetProcId(L"AMPLibraryAgent.exe");
-	DLL_NAME = "PineappleMusic.dll";
-
-
-	GetFullPathNameA(DLL_NAME, MAX_PATH, DLL_PATH, NULL);
+	GetFullPathNameA(dll, MAX_PATH, DLL_PATH, NULL);
 
 	while (!dwProcess)
 	{
-		dwProcess = GetProcId(L"AMPLibraryAgent.exe");
+		dwProcess = getProcId(procName);
 		Sleep(10);
 	}
 
@@ -54,7 +49,7 @@ int main()
 	{
 		HANDLE hThread;
 		LPVOID allocMem;
-			
+
 		allocMem = VirtualAllocEx(hProcess, NULL, MAX_PATH, MEM_RESERVE | MEM_COMMIT, PAGE_READWRITE);
 
 		WriteProcessMemory(hProcess, allocMem, DLL_PATH, strlen(DLL_PATH) + 1, NULL);
@@ -66,6 +61,14 @@ int main()
 
 		CloseHandle(hProcess);
 	}
+
+	return true;
+}
+
+int main()
+{
+	inject(L"AMPLibraryAgent.exe", "PineappleMusic.dll");
+	//add injection to applemusic.exe --> requires .dll to be able to distinguish between targets
 
 	return true;
 }
