@@ -105,16 +105,16 @@ namespace Modules
 	QuickPatch::QuickPatch()
 	{
 		//AMP library agent debug log
-		//Utils::Hook::InstallHook((void*)(AMPLibraryAgentBase + 0x0200A44), print_f);
+		Utils::Hook::InstallHook((void*)(AMPLibraryAgentBase + 0x0200A44), print_f);
 
 		//we dont need this
 		//Utils::Hook::InstallHook((void*)(AMPLibraryAgentBase + 0x0A1A614), calculateVolume); 
 
 		//Volume step frequency
-		Utils::Hook::InstallHook((void*)(MicrosoftUIXamlBase + 0xFEF6), fixVolumeStepFrequency);
+		//Utils::Hook::InstallHook((void*)(MicrosoftUIXamlBase + 0xFEF6), fixVolumeStepFrequency);
 
 		//AMP Services debug log
-		Utils::Hook::InstallHook((void*)(AMPServicesBase + 0x011D18C), print_f);
+		//Utils::Hook::InstallHook((void*)(AMPServicesBase + 0x011D18C), print_f);
 	}
 
 }
