@@ -6,7 +6,7 @@
 - Enabled AMP Service debug log
 - Fixed volume slider step frequency
 
-#### Current features:
+#### How to use:
 - Start PineappleLoader.exe
 - Start AppleMusic
 
